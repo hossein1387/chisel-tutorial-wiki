@@ -157,3 +157,6 @@ class Fifo[T <: Data](data: T, n: Int) extends Module {
   ...
 }
 ```
+
+[Prev(Functional Module Creation)]  (Functional Module Creation)    
+[Next(Multiple Clock Domains)]  (Multiple Clock Domains)
