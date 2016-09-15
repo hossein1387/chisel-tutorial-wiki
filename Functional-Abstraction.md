@@ -22,3 +22,5 @@ val out = clb(a,b,c,d)
 
 We will later describe many powerful ways to use functions to
 construct hardware using Scala's functional programming support.
+
+[Prev (Builtin Operators)](Builtin Operators) [Next (Bundles and Vecs)](Bundles and Vecs)
