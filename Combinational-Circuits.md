@@ -11,7 +11,7 @@ using the following expression:
 ```
 
 The syntax should look familiar, with ```\&``` and ```|```
-representing bitwise-AND and -OR respectively, and ```\~```}}
+representing bitwise-AND and -OR respectively, and ```\~```
 representing bitwise-NOT.  The names ```a``` through ```d```
 represent named wires of some (unspecified) width.
 
