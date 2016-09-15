@@ -29,12 +29,11 @@ Jack: I cannot seem to get this to actually work
 
 We now present a more advanced example of parameterized functions for defining an inner product FIR digital filter generically over Chisel `Num`s.
 
-The inner product FIR filter can be mathematically defined as: ???
-<!---
+The inner product FIR filter can be mathematically defined as:
 \begin{equation}
 y[t] = \sum_j w_j * x_j[t-j]
 \end{equation}
---->
+
 
 where `x` is the input and `w` is a vector of weights.
 In Chisel this can be defined as:
@@ -58,36 +57,32 @@ Finally, the `FIR` function is constrained to work on inputs of type `Num` where
 # Parameterized Classes
 
 Like parameterized functions, we can also parameterize classes to make them more reusable.
-For instance, we can generalize the Filter class to use any kind of link.  
-We do so by parameterizing the `FilterIO` class and defining the constructor to take a zero argument type constructor function as follow:
+For instance, we can generalize the Filter class to use any kind of link.
+We do so by parameterizing the `FilterIO` class and defining the constructor to take a single argument `gen` of type `T` as below.
 
-<!---
-Jack: What is the point of flipping an input?
---->
 ```scala
-class FilterIO[T <: Data](type: T) extends Bundle { 
-  val x = type.asInput
-  val y = type.asOutput
+class FilterIO[T <: Data](gen: T) extends Bundle { 
+  val x = gen.asInput
+  val y = gen.asOutput
 }
 ```
 
 We can now define `Filter` by defining a module class that also takes a link type constructor argument and passes it through to the `FilterIO` interface constructor:
 
 ```scala
-class Filter[T <: Data](type: T) extends Module { 
-  val io = new FilterIO(type)
+class Filter[T <: Data](gen: T) extends Module { 
+  val io = new FilterIO(gen)
   ...
 }
 ```
 
-We can now define a `PLink` based `Filter` as follows:
+We can now define a `PLink`-based `Filter` as follows:
 
 ```scala
 val f = Module(new Filter(new PLink))
 ```
 
-A generic FIFO could be defined as shown in Figure ??? and
-used as follows:
+A generic FIFO could be defined as follows:
 
 ```scala
 class DataBundle extends Bundle {
@@ -95,20 +90,14 @@ class DataBundle extends Bundle {
   val b = UInt(width = 32)
 }
 
-object FifoDemo {
-  def apply () = new Fifo(new DataBundle, 32)
-}
-```
-
-```scala
-class Fifo[T <: Data](type: T, n: Int) extends Module {
+class Fifo[T <: Data](gen: T, n: Int) extends Module {
   val io = new Bundle {
     val enqVal = Bool(INPUT)
     val enqRdy = Bool(OUTPUT)
     val deqVal = Bool(OUTPUT)
     val deqRdy = Bool(INPUT)
-    val enqDat = type.asInput
-    val deqDat = type.asOutput
+    val enqDat = gen.asInput
+    val deqDat = gen.asOutput
   }
   val enqPtr     = Reg(init = UInt(0, sizeof(n)))
   val deqPtr     = Reg(init = UInt(0, sizeof(n)))
@@ -134,7 +123,11 @@ class Fifo[T <: Data](type: T, n: Int) extends Module {
 }
 ```
 
-Fifo figure here ???
+An Fifo with 8 elements of type DataBundle could then be instantiated as:
+
+```scala
+val fifo = Module(new Fifo(new DataBundle, 8))
+```
 
 It is also possible to define a generic decoupled (ready/valid) interface:
 
