@@ -1,4 +1,5 @@
 ### List of operators
+Chisel defines a set of hardware operators
 
 | operation        | bit width           |
 | ---------        | ---------           |
@@ -11,7 +12,7 @@
 | val allSet = andR(x)                      | AND reduction                     |   
 | val anySet = orR(x)                       | OR reduction                      |  
 | val parity = xorR(x)                      | XOR reduction                     |   
-| **Equality comparison.** |                | **Valid on:** SInt, UInt, and Bool. Returns Bool. |
+| **Equality comparison.**                  | **Valid on:** SInt, UInt, and Bool. Returns Bool. |
 | val equ = x === y                         | Equality                          |
 | val neq = x =/= y                         | Inequality                        |
 | **Shifts**                                | **Valid on:** SInt and UInt       |
@@ -22,12 +23,22 @@
 | val xTopNibble = x(15,12)                 | Extract bit field from end to start bit position.     |            
 | val usDebt = Fill(3, "hA".U)              | Replicate a bit string multiple times.     |               
 | val float = Cat(sign,exponent,mantissa)   | Concatenates bit fields, with first argument on left.     |
-| --- |
 | **Logical Operations**                    | **Valid on:** Bool                                                                             
 | val sleep = !busy                         | Logical NOT                       |       
 | val hit = tagMatch && valid               | Logical AND                       |                 
 | val stall = src1busy \|\| src2busy          | Logical OR                        |                     
 | val out = Mux(sel, inTrue, inFalse)       | Two-input mux where sel is a Bool |                                               
+| **Arithmetic operations**                 | **Valid on Nums:** SInt and UInt.  |
+| val sum = a + b                           | Addition                           |           
+| val diff = a - b                          | Subtraction                        |            
+| val prod = a * b                          | Multiplication                     |            
+| val div = a / b                           | Division                           |           
+| val mod = a % b                           | Modulus                            |           
+| **Arithmetic comparisons**                | **Valid on Nums:** SInt and UInt. Returns Bool. |
+| val gt = a > b                            | Greater than                       |      
+| val gte = a >= b                          | Greater than or equal              |                 
+| val lt = a < b                            | Less than                          |   
+| val lte = a <= b                          | Less than or equal                 |              
 
 
 ### BitWidth Inference
