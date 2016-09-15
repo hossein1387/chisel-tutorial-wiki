@@ -1,13 +1,13 @@
 ### List of operators
 Chisel defines a set of hardware operators
 
-| operation        | bit width           |
+| Operation        | Explanation |
 | ---------        | ---------           |
 | **Bitwise operators**                     | **Valid on:** SInt, UInt, Bool    |
 | val invertedX = ~x                        | Bitwise NOT |
-| val allSet = andR(x)                      | AND reduction                     |     
-| val anySet = orR(x)                       | OR reduction                      |   
-| val parity = xorR(x)                      | XOR reduction                     |  
+| val hiBits = x & UInt("h_ffff_0000")      | AND reduction                     |     
+| val flagsOut = flagsIn | overflow         | OR reduction                      |   
+| val flagsOut = flagsIn ^ toggle           | XOR reduction                     |  
 | **Bitwise reductions.**                   | **Valid on:** SInt and UInt. Returns Bool. |
 | val allSet = andR(x)                      | AND reduction                     |   
 | val anySet = orR(x)                       | OR reduction                      |  
