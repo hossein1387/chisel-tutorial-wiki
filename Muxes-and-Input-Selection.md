@@ -1,6 +1,6 @@
 Selecting inputs is very useful in hardware description, and therefore Chisel provides several built-in generic input-selection implementations.
 The first one is `Mux`. This is a 2-input selector. Unlike the `Mux2` example which was presented previously, the built-in `Mux` allows 
-the inputs `in0` and `in1`)to be any datatype as long as they are the same subclass of `Data`.
+the inputs (`in0` and `in1`) to be any datatype as long as they are the same subclass of `Data`.
 
 by using the functional module creation feature presented in the previous section, we can create multi-input selector in a simple way:
 
