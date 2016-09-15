@@ -114,4 +114,4 @@ where a counter is used as an address generator into a memory.
 The device records while \verb+button+ is \verb+true+, or plays back when \verb+false+.
 --->
 
-[Next](Interfaces \& Bulk Connections)
+[Prev(State Elements)]  (State Elements)[Next(Interfaces \& Bulk Connections)](Interfaces \& Bulk Connections)
