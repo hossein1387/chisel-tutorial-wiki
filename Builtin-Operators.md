@@ -59,3 +59,4 @@ calculates node output bit widths from their respective input bit widths accordi
 | ```z = Cat(x, y)```    | ```wz = wx + w```y        |
 | ```z = Fill(n, x)```   | ```wz = wx * maxNum(n)``` |
 
+[Prev (Combinational Circuits)](Combinational Circuits)  [Next (Functional Abstraction)](Functional Abstraction)
