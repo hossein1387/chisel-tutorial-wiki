@@ -1,5 +1,29 @@
 ### List of operators
 
+| operation        | bit width           |
+| ---------        | ---------           |
+| **Bitwise operators**                                       |
+| val invertedX = ~x                        | Bitwise NOT |
+| val allSet = andR(x)                      | AND reduction                     |     
+| val anySet = orR(x)                       | OR reduction                      |   
+| val parity = xorR(x)                      | XOR reduction                     |  
+| **Bitwise reductions.** Valid on SInt and UInt. Returns Bool. |
+| val allSet = andR(x)                      | AND reduction                     |   
+| val anySet = orR(x)                       | OR reduction                      |  
+| val parity = xorR(x)                      | XOR reduction                     |   
+| **Equality comparison.** Valid on SInt, UInt, and Bool. Returns Bool.
+| val equ = x === y                         | Equality                          |
+| val neq = x =/= y                         | Inequality                        |
+| **Shifts. Valid on SInt and UInt.**
+| val twoToTheX = 1.S << x                  | Logical shift left                |
+| val hiBits = x >> 16.U                    | Right shift (logical on UInt and& arithmetic on SInt). |  
+| **Logical Operations** |                                                                                
+| val sleep = !busy                         | Logical NOT                       |       
+| val hit = tagMatch && valid               | Logical AND                       |                 
+| val stall = src1busy \|\| src2busy          | Logical OR                        |                     
+| val out = Mux(sel, inTrue, inFalse)       | Two-input mux where sel is a Bool |                                               
+
+
 ### BitWidth Inference
 Users are required to set bit widths of ports and registers, but otherwise,
 bit widths on wires are automatically inferred unless set manually by the user.
