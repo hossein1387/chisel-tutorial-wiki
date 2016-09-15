@@ -25,11 +25,11 @@ collaboration with Dany Qumsiyeh and Mark Tobenkin.
 
 <!--- Who else? --->
 
-Bachrach, J., Vo, H., Richards, B., Lee, Y., Waterman, A., Avizienis, Wawrzynek, J., Asanovic
- **Chisel: Constructing Hardware in a Scala Embedded Language**.
-in DAC '12.
-Bachrach, J., Qumsiyeh, D., Tobenkin, M.
- **Hardware Scripting in Gel**.
-in Field-Programmable Custom Computing Machines, 2008. FCCM '08. 16th.\end{thebibliography}
+Bachrach, J., Vo, H., Richards, B., Lee, Y., Waterman, A., Avizienis, Wawrzynek, J., Asanovic  
+ **Chisel: Constructing Hardware in a Scala Embedded Language**.  
+in DAC '12.  
+Bachrach, J., Qumsiyeh, D., Tobenkin, M.  
+ **Hardware Scripting in Gel**.  
+in Field-Programmable Custom Computing Machines, 2008. FCCM '08. 16th.  
 
 [Prev(Multiple Clock Domainss)]  (Multiple Clock Domains)
