@@ -71,3 +71,5 @@ class Mux4 extends Module {
 ```
 
 This allows to write more intuitively readable hardware connection descriptions, which are similar to software expression evaluation.
+
+[Next (Muxes and Input Selection)](Muxes and Input Selection)
