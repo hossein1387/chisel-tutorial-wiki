@@ -21,7 +21,7 @@ class Mux2Tests(c: Mux2, b: Option[TesterBackend] = None) extends PeekPokeTester
   }
 }
 ```
-assignments for each input of Mux2 are set to the appropriate values using poke. For this particular example, we are testing the Mux2 by hardcoding the inputs to some known values and checking if the output corresponds to the known one. To do this, on each iteration we generate appropriate inputs to the module and tell the simulation to assign these values to the inputs of the device we are testing c, step the circuit 1 clock cycle, and test the expected value. Steps are necessary to update registers and the combinational logic driven by registers. For pure combinational paths, poke alone is sufficient to update all combinational paths connected to the poked input wire.
+assignments for each input of ```Mux2``` are set to the appropriate values using poke. For this particular example, we are testing the ```Mux2``` by hardcoding the inputs to some known values and checking if the output corresponds to the known one. To do this, on each iteration we generate appropriate inputs to the module and tell the simulation to assign these values to the inputs of the device we are testing c, step the circuit 1 clock cycle, and test the expected value. Steps are necessary to update registers and the combinational logic driven by registers. For pure combinational paths, poke alone is sufficient to update all combinational paths connected to the poked input wire.
 
 
-[Next](State Elements)
+[Next(State Elements)]  (State Elements)
