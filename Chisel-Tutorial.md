@@ -1,4 +1,4 @@
-Chisel Basics
+[Chisel Introduction](Chisel Introduction)
 
 [Tutorial Problems](tutorial-problems)
 
