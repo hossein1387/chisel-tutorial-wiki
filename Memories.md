@@ -1,6 +1,6 @@
 Chisel provides facilities for creating both read only and read/write memories.  
 
-#### ROM
+## ROM
 
 Users can define read only memories with a `Vec`:
 
@@ -32,7 +32,7 @@ We can create an *n* value sine lookup table using a ROM initialized as follows:
 
 where `amp` is used to scale the fixpoint values stored in the ROM.
 
-#### Mem
+## Mem
 
 Memories are given special treatment in Chisel since hardware
 implementations of memory have many variations, e.g., FPGA memories
