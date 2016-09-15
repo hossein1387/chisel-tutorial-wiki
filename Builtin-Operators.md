@@ -58,7 +58,7 @@ calculates node output bit widths from their respective input bit widths accordi
 | ```z = x >> n```       | ```wz = wx - minNum(n)``` |
 | ```z = Cat(x, y)```    | ```wz = wx + w```y        |
 | ```z = Fill(n, x)```   | ```wz = wx * maxNum(n)``` |
->where for instance $wz$ is the bit width of wire $z$, and the \verb+&+
+>where for instance *wz* is the bit width of wire *z*, and the *&*
 rule applies to all bitwise logical operations.
 
 [Prev (Combinational Circuits)](Combinational Circuits)  [Next (Functional Abstraction)](Functional Abstraction)
