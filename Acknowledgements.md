@@ -25,7 +25,7 @@ collaboration with Dany Qumsiyeh and Mark Tobenkin.
 
 <!--- Who else? --->
 
-Bachrach, J., Vo, H., Richards, B., Lee, Y., Waterman, A., Avizienis, Wawrzynek, J., Asanovic  
+Bachrach, J., Vo, H., Richards, B., Lee, Y., Waterman, A., Avizienis, Wawrzynek, J., Asanovic, K.  
  **Chisel: Constructing Hardware in a Scala Embedded Language**.  
 in DAC '12.  
 Bachrach, J., Qumsiyeh, D., Tobenkin, M.  
