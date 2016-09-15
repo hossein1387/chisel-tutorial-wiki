@@ -61,4 +61,22 @@ calculates node output bit widths from their respective input bit widths accordi
 >where for instance *wz* is the bit width of wire *z*, and the *&*
 rule applies to all bitwise logical operations.
 
+The bit width inference process continues until no bit width changes.
+Except for right shifts by known constant amounts, the bit-width
+inference rules specify output bit widths that are never smaller than
+the input bit widths, and thus, output bit widths either grow or stay
+the same.  Furthermore, the width of a register must be specified by
+the user either explicitly or from the bit width of the reset value or
+the *next* parameter.
+From these two requirements, we can show that the bit width inference
+process will converge to a fixed point.
+
+>Our choice of operator names was constrained by the Scala language.
+We have to use triple equals```===``` for equality and ```=/=```
+for inequality to allow the
+native Scala equals operator to remain usable.
+
+>We are also planning to add further operators that constrain bitwidth
+to the larger of the two inputs.
+
 [Prev (Combinational Circuits)](Combinational Circuits)  [Next (Functional Abstraction)](Functional Abstraction)
