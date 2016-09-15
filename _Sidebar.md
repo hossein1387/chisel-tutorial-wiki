@@ -6,7 +6,7 @@ Chisel Tutorial
 1. [Combinational Circuits] (Combinational Circuits)
 1. [Builtin Operators] (Builtin Operators)
 1. [Functional Abstraction] (Functional Abstraction)
-1. (Bundles and Vecs)
+1. [Bundles and Vecs](Bundles and Vecs)
 1. [Ports](Ports)
 1. [Modules](Modules)
 1. [State Elements] (State Elements)
