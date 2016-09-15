@@ -35,3 +35,5 @@ the data object to the requested direction.
 
 By folding directions into the object declarations, Chisel is able to
 provide powerful wiring constructs described later.
+
+[Prev (Bundles and Vecs)](Bundles and Vecs) [Next (Modules)](Modules)
