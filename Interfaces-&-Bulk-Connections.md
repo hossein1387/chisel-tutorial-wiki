@@ -16,11 +16,11 @@ class SimpleLink extends Bundle {
 ```
 
 We can then extend SimpleLink by adding parity bits using bundle inheritance:
-
+```
 class PLink extends SimpleLink {
   val parity = UInt(5, OUTPUT)
 }
-
+```
 In general, users can organize their interfaces into hierarchies using inheritance.
 
 From there we can define a filter interface by nesting two PLinks into a new FilterIO bundle:
@@ -66,66 +66,6 @@ class Block extends Module {
   f2.io.y <> io.y
 }
 ```
-where <> bulk connects interfaces of opposite gender between sibling modules or interfaces of same gender between parent/child modules. Bulk connections connect leaf ports of the same name to each other.
+where <> bulk connects interfaces of opposite gender between sibling modules or interfaces of the same gender between parent/child modules.
 
-After all connections are made and the circuit is being elaborated, Chisel warns users if ports have other than exactly one connection to them.
-
-13.4 Interface Views
-
-Consider a simple CPU consisting of control path and data path submodules and host and memory interfaces shown in Figure ??. In this CPU we can see that the control path and data path each connect only to a part of the instruction and data memory interfaces. Chisel allows users to do this with partial fulfillment of interfaces. A user first defines the complete interface to a ROM and Mem as follows:
-```
-class RomIo extends Bundle {
-  val isVal = Bool(INPUT)
-  val raddr = UInt(INPUT, 32)
-  val rdata = UInt(OUTPUT, 32)
-}
-
-class RamIo extends RomIo {
-  val isWr = Bool(INPUT)
-  val wdata = UInt(INPUT, 32)
-}
-```
-Now the control path can build an interface in terms of these interfaces:
-```
-class CpathIo extends Bundle {
-  val imem = RomIo().flip()
-  val dmem = RamIo().flip()
-  ...
-}
-```
-and the control and data path modules can be built by partially assigning to this interfaces as follows:
-```
-class Cpath extends Module {
-  val io = new CpathIo()
-  ...
-  io.imem.isVal := ...
-  io.dmem.isVal := ...
-  io.dmem.isWr := ...
-  ...
-}
-
-class Dpath extends Module {
-  val io = new DpathIo()
-  ...
-  io.imem.raddr := ...
-  io.dmem.raddr := ...
-  io.dmem.wdata := ...
-  ...
-}
-```
-We can now wire up the CPU using bulk connects as we would with other bundles:
-```
-class Cpu extends Module {
-  val io = new CpuIo()
-  val c = Module(new CtlPath())
-  val d = Module(new DatPath())
-  c.io.ctl <> d.io.ctl
-  c.io.dat <> d.io.dat
-  c.io.imem <> io.imem
-  d.io.imem <> io.imem
-  c.io.dmem <> io.dmem
-  d.io.dmem <> io.dmem
-  d.io.host <> io.host
-}
-```
-Repeated bulk connections of partially assigned control and data path interfaces completely connect up the CPU interface.
+Bulk connections connect leaf ports of the same name to each other. If the names do not match or are missing, Chisel does not generate a connection.
