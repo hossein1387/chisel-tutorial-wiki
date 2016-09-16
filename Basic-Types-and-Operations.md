@@ -155,4 +155,27 @@ In this assignment, write the *LFSR16*+ circuit as shown below:
 
 ![Figure 1: Block Diagram of 4-Bit Adder](figs/LFSR16.png)
 
+by filling in the following module:
+
+```scala
+class LFSR16 extends Module {
+  val io = new Bundle {
+    val inc = Bool(INPUT)
+    val out = UInt(OUTPUT, 16)
+  }
+  // ...
+  io.out := UInt(0)
+}
+```
+found in *$TUT_DIR/src/main/scala/problems/LFSR16.scala*+.
+Make sure to define and initialize an internal register to one and 
+update it when *inc*+ is asserted.
+Use bit concatentation and bit extraction 
+in conjunction with the xor operator *^*+.  Run 
+
+```bash
+sbt
+test:run-main problems.Launcher LFSR16
+```
+
 [Prev (The Basics)](The Basics)  [Next (Instantiating Modules)](Instantiating Modules)
