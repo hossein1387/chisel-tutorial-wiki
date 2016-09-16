@@ -179,6 +179,111 @@ test:run-main problems.Launcher LFSR16
 ```
 Fix your program as necessary and re-run until it works.
 
+### UInt Operation Bit Inference}
+
+Note that for some operations such as addition and multiplication, that number of resulting bits of the computation can be greater than the number of bits for the operands. 
+
+Consider the following example where we multiply two 16 bit numbers *A* and *B* together. Note that the product of two 16 bit numbers is at worst 32 bits wide.
+
+```scala
+class HiLoMultiplier() extends Module {
+  val io = new Bundle {
+    val A  = UInt(INPUT, 16)
+    val B  = UInt(INPUT, 16)
+    val Hi = UInt(OUTPUT, 16)
+    val Lo = UInt(OUTPUT, 16)
+  }
+  val mult = io.A * io.B
+  io.Lo := mult(15, 0)
+  io.Hi := mult(31, 16)  
+}
+
+```
+
+Notice that we never specify the width of the value *mult* anywhere in the Chisel source. Normally if we performed this in Verilog we would have had to specify the width beforehand. But a look at the generated Verilog for this example shows that Chisel correctly inferred the *mult* value to be 32 bits wide:
+
+```scala
+module HiLoMultiplier(
+    input [15:0] io_A,
+    input [15:0] io_B,
+    output[15:0] io_Hi,
+    output[15:0] io_Lo);
+
+  wire[15:0] T0;
+  wire[31:0] mult; // Chisel infers this to be 32 bits
+  wire[15:0] T1;
+
+  assign io_Lo = T0;
+  assign T0 = mult[4'hf:1'h0];
+  assign mult = io_A * io_B;
+  assign io_Hi = T1;
+  assign T1 = mult[5'h1f:5'h10];
+endmodule
+
+```
+### UInt Operation Bit Inference}
+
+Note that for some operations such as addition and multiplication, that number of resulting bits of the computation can be greater than the number of bits for the operands. 
+
+Consider the following example where we multiply two 16 bit numbers *A* and *B* together. Note that the product of two 16 bit numbers is at worst 32 bits wide.
+
+```scala
+//A 4-bit adder with carry in and carry out
+class HiLoMultiplier() extends Module {
+  val io = new Bundle {
+    val A  = UInt(INPUT, 16)
+    val B  = UInt(INPUT, 16)
+    val Hi = UInt(OUTPUT, 16)
+    val Lo = UInt(OUTPUT, 16)
+  }
+  val mult = io.A * io.B
+  io.Lo := mult(15, 0)
+  io.Hi := mult(31, 16)
+}
+```
+
+Notice that we never specify the width of the value *mult* anywhere in the Chisel source. Normally if we performed this in Verilog we would have had to specify the width beforehand. But a look at the generated Verilog for this example shows that Chisel correctly inferred the *mult* value to be 32 bits wide:
+
+```scala
+module HiLoMultiplier(
+    input [15:0] io_A,
+    input [15:0] io_B,
+    output[15:0] io_Hi,
+    output[15:0] io_Lo);
+
+  wire[15:0] T0;
+  wire[31:0] mult; // Chisel infers this to be 32 bits
+  wire[15:0] T1;
+
+  assign io_Lo = T0;
+  assign T0 = mult[4'hf:1'h0];
+  assign mult = io_A * io_B;
+  assign io_Hi = T1;
+  assign T1 = mult[5'h1f:5'h10];
+endmodule
+
+```
+
+As we get to more complicate designs, it will become more clear that bit inference in Chisel is a very powerful feature that makes constructing hardware more efficient. A list of common bit inferences is shown below for commonly used operations:
+
+
+| Operation | Result Bit Width |
+| --------- | ---------------- |
+|*Z = X + Y*   |  max(Width(X), Width(Y))  |
+|*Z = X - Y*   |  max(Width(X), Width(Y)) |
+|*Z = X + Y*   |  max(Width(X), Width(Y)) |
+|*Z = X | Y*   |  max(Width(X), Width(Y)) |
+|*Z = X ^ Y*   |  max(Width(X), Width(Y)) |
+|*Z = ~X*      |  Width(X) |
+|*Z = Mux(C, X, Y)*   |  max(Width(X), Width (Y)) |
+|*Z = X * Y*   |  Width(X) + Width(Y) |
+|*Z = X << n*   |  Width(X) + n |
+|*Z = X >> n*   |  Width(X) - n |
+|*Z = Cat(X, Y)*   |  Width(X) + Width(Y) |
+|*Z = Fill(n, x)*   |  Width(X) + n |
+
+
+
 
 
 [Prev (The Basics)](The Basics)  [Next (Instantiating Modules)](Instantiating Modules)
