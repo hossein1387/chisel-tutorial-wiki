@@ -1,3 +1,4 @@
+## Chisel Assignments and Re-assignments
 When you first define a value in Chisel, we use the *=*+ operator in order to tell Chisel to allocate the value for the first time. On every subsequent reassignment to the value, we must use a *:=* when reassigning the value.
 
 Since we are constructing a digital circuit, the notion of reassignment does not make much sense since connections between circuit nodes only need to be specified once. However, there are some cases when we will need to perform reassignment to a value in Chisel since it is compiled sequentially unlike Verilog. Thus it may be necessary to perform reassignment when a value or connection is not known until later in the Chisel source. 
@@ -26,9 +27,17 @@ class FullAdder extends Module {
   io.cout := a_and_b | b_and_cin | a_and_cin
 }
 ```
+In this example we make sure to use the *:=* reassignment for the *io.sum* and *io.cout* output values because we only know what their values are later in the code and not at the time of construction of the *io* Bundle. All other values in this example use the *=* assignment operator since they need to be created. 
+
+In general, the rule of thumb is to use the reassignment operator *:=* if the value already has been assigned by the *=* operator, otherwise the *=* operator should be used. Note that if you do not use the *=* or *:=* operators correctly you will get an error when you try and compile your design.
+
+### The Chisel UInt Class
 
 
-In the previous examples we have been using the UInt type which is an unsigned integer as the type for all of our values. For many of the basic computations in Chisel the UInt class is sufficient. The following example shows some of the commonly used UInt operations in the context of a simple *ALU*\footnote{We ignore overflow and underflow in this example.}:
+
+In the previous examples we have been using the UInt type which is an unsigned integer as the type for all of our values. For many of the basic computations in Chisel the UInt class is sufficient. The following example shows some of the commonly used UInt operations in the context of a simple *ALU*
+
+>We ignore overflow and underflow in this example.
 
 ```scala
 class BasicALU extends Module {
@@ -67,7 +76,7 @@ You will notice that there are multiple reassignments to *io.output*+ inside a *
 
 ```scala
 // Specify that 1 is a UInt type
-io.output := io.a + UInt(1) 
+io.output := io.a + 1.U 
 ```
 
 A list of commonly used UInt operations is given in the table below:
