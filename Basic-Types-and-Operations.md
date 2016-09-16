@@ -171,11 +171,14 @@ found in *$TUT_DIR/src/main/scala/problems/LFSR16.scala*+.
 Make sure to define and initialize an internal register to one and 
 update it when *inc*+ is asserted.
 Use bit concatentation and bit extraction 
-in conjunction with the xor operator *^*+.  Run 
+in conjunction with the xor operator *^*.  Run 
 
 ```bash
 sbt
 test:run-main problems.Launcher LFSR16
 ```
+Fix your program as necessary and re-run until it works.
+
+
 
 [Prev (The Basics)](The Basics)  [Next (Instantiating Modules)](Instantiating Modules)
