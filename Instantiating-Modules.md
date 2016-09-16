@@ -376,3 +376,6 @@ until your circuit passes the tests.
 <Finish this>
 %
 --->
+
+[Prev (Basic Types and Operations)](Basic Types and Operations) 
+[Next (Writing Scala Testbenches)](Writing Scala Testbenches)
