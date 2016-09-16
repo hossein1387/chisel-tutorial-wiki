@@ -99,5 +99,42 @@ A list of commonly used UInt operations is given in the table below:
 |>= | Greater or Equal | Bool |
 |<= | Less or Equal | Bool |
 
+### Bit Extraction}
+
+The UInt class allows you to extract bits based on their index of their representation. Given an *n*+ bit wide value *value* we can extract the bits *x*+ through *y*+ (n > x > y >= 0) by simply doing the following:
+
+```scala
+// extracts the x through y bits of value
+val x_to_y = value(x, y) 
+```
+
+Note that the higher index is specified first in the argument list when extraction the bits. Also notice that the bits in the UInt are zero indexed so the highest bit that can be extracted from an *n*+ bit wide value is *n-1*+.
+
+If you just want to extract a single bit from the value, say bit *x*+ we simply need to specify a single index instead as follows:
+```scala
+// extract the x-th bit from value
+val x_of_value = value(x)
+```
+
+A more concrete example of bit extraction in action is shown below. In this example, based on the value of the offset, we would like to select a byte from a word which is a common operation when loading a byte from word addressed memories:
+
+```scala
+class ByteSelector extends Module {
+  val io = new Bundle {
+    val in     = UInt(INPUT, 32)
+    val offset = UInt(INPUT, 2)
+    val out    = UInt(OUTPUT, 8)
+  }
+  io.out := UInt(0, width=8)
+  when (io.offset === UInt(0, width=2)) {
+    io.out := io.in(7,0)
+  } .elsewhen (io.offset === 1.U) {
+    io.out := io.in(15,8)
+  } .elsewhen (io.offset === 2.U) {
+    io.out := io.in(23,16)
+  } .otherwise {
+    io.out := io.in(31,24)
+  }
+}```
 
 [Prev (The Basics)](The Basics)  [Next (Instantiating Modules)](Instantiating Modules)
