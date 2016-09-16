@@ -448,7 +448,7 @@ class ShiftRegister extends Module {
 
 This will generate slightly different looking Verilog source code but will still function the same as the previous implementation of the shift register with reset.
 
-#### {Sequential Circuit}
+#### Sequential Circuit
 
 The following exercises can be found in your
 `$TUT_DIR/src/main/scala/problems/` folder. You will find that some parts of
