@@ -99,7 +99,7 @@ A list of commonly used UInt operations is given in the table below:
 |>= | Greater or Equal | Bool |
 |<= | Less or Equal | Bool |
 
-### Bit Extraction}
+### Bit Extraction
 
 The UInt class allows you to extract bits based on their index of their representation. Given an *n*+ bit wide value *value* we can extract the bits *x*+ through *y*+ (n > x > y >= 0) by simply doing the following:
 
@@ -136,5 +136,23 @@ class ByteSelector extends Module {
     io.out := io.in(31,24)
   }
 }```
+
+### Bit Concatenation}
+
+Chisel also allows you to easily concatenate bits together using *Cat*. Suppose you have a data bus that you would like to drive with two seperate words *A* and *B*. In order to concatenate these two values together we simply sa:
+
+```scala
+val A = UInt(width = 32)
+val B = UInt(width = 32)
+val bus = Cat(A, B) // concatenate A and B
+```
+
+Again, the first argument to *Cat* will be placed in the high part while the second argument gets the low part of *bus*. Thus for this example bits 0 to 31 of *bus* correspond to *B*, while bits 32 to 63 correspond to *A*. 
+
+### **LFSR16**
+
+In this assignment, write the *LFSR16*+ circuit as shown below:
+
+![Figure 1: Block Diagram of 4-Bit Adder](figs/LSFR.png)
 
 [Prev (The Basics)](The Basics)  [Next (Instantiating Modules)](Instantiating Modules)
