@@ -153,6 +153,6 @@ Again, the first argument to *Cat* will be placed in the high part while the sec
 
 In this assignment, write the *LFSR16*+ circuit as shown below:
 
-![Figure 1: Block Diagram of 4-Bit Adder](figs/LSFR.png)
+![Figure 1: Block Diagram of 4-Bit Adder](figs/LFSR16.png)
 
 [Prev (The Basics)](The Basics)  [Next (Instantiating Modules)](Instantiating Modules)
