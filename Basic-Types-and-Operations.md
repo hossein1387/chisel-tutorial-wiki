@@ -72,4 +72,23 @@ io.output := io.a + UInt(1)
 
 A list of commonly used UInt operations is given in the table below:
 
+| Operand | Operation | Output Type |
+| ------- | --------- | ----------- |
+|+ | Add | UInt  |
+|- | Subtract | UInt  |
+|$\ast$ | Multiply | UInt |
+|/ | UInt Divide | UInt |
+|% | Modulo | UInt |
+|\~\ | Bitwise Negation | UInt |
+|\^\ | Bitwise XOR | UInt|
+|\& | Bitwise AND | UInt |
+| \| | Bitwise OR | Bool |
+|=== | Equal | Bool |
+|=/= | Not Equal | Bool |
+|> | Greater | Bool |
+|< | Less | Bool |
+|>= | Greater or Equal | Bool |
+|<= | Less or Equal | Bool |
+
+
 [Prev (The Basics)](The Basics)  [Next (Instantiating Modules)](Instantiating Modules)
