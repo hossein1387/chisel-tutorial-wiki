@@ -272,7 +272,7 @@ As we get to more complicate designs, it will become more clear that bit inferen
 |*Z = X + Y*   |  max(Width(X), Width(Y))  |
 |*Z = X - Y*   |  max(Width(X), Width(Y)) |
 |*Z = X + Y*   |  max(Width(X), Width(Y)) |
-|*Z = X | Y*   |  max(Width(X), Width(Y)) |
+|*Z = X \| Y*   |  max(Width(X), Width(Y)) |
 |*Z = X ^ Y*   |  max(Width(X), Width(Y)) |
 |*Z = ~X*      |  Width(X) |
 |*Z = Mux(C, X, Y)*   |  max(Width(X), Width (Y)) |
@@ -282,8 +282,59 @@ As we get to more complicate designs, it will become more clear that bit inferen
 |*Z = Cat(X, Y)*   |  Width(X) + Width(Y) |
 |*Z = Fill(n, x)*   |  Width(X) + n |
 
+## The Chisel Bool Class
 
+The Bool class in Chisel is used to represent the result of logical expressions and takes either the values *true* or *false*. These can be used in conditional statements such as *when* blocks.
 
+```scala
+val change = io.a === io.b // change gets Bool type
+when (change) {            // exec if change is true
+  ...
+} .otherwise {
+  ...
+}
+```
 
+You can instantiate a Bool value like this:
+
+```scala
+val true_value  = Bool(true)
+val false_value = Bool(false)
+```
+
+% As shown in the *BasicALU* example, in order to use a Bool value as a UInt type and assign it to an output, a cast to UInt is required.
+
+## Casting Between Types
+
+When assigning values, it is required that you assign a value of the same type. For instance, if you try to assign a Bool type to an output value that is expecting a UInt type, you will get an error.
+
+```scala
+  ...
+  val io  = new Bundle {
+    val in  = UInt(INPUT, 2)
+    val out = UInt(OUTPUT, 1)
+  }
+  // attempted Bool assignment to UInt
+  io.out := (in === UInt(0)) 
+  ...
+```
+
+The correct way to perform the intended operation is to cast the resulting Bool type to a UInt using the *toUInt()* cast. The correct Chisel code will look like:
+
+```scala
+  ...
+  val io = new Bundle {
+    val in  = UInt(INPUT, 2)
+    val out = UInt(OUTPUT, 1)
+  }
+  io.out := (in === UInt(0)).toUInt() // UInt cast
+  ...
+```
+
+Some of the common casts that you may use are:
+
+ - toUInt()
+ - toSInt()
+ - toBool()
 
 [Prev (The Basics)](The Basics)  [Next (Instantiating Modules)](Instantiating Modules)
