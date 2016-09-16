@@ -1,8 +1,8 @@
 Often times parametrization requires instantiating multiple components which are connected in a very regular structure. A revisit to the parametrized *Adder* component definition shows the *for* loop construct in action:
 
 ```scala
-// A n-bit adder with carry in and carry out
-class Adder(n: Int) extends Module {
+//A n-bit adder with carry in and carry out
+class Adder(val n:Int) extends Module {
   val io = new Bundle {
     val A    = UInt(INPUT, n)
     val B    = UInt(INPUT, n)
@@ -10,23 +10,23 @@ class Adder(n: Int) extends Module {
     val Sum  = UInt(OUTPUT, n)
     val Cout = UInt(OUTPUT, 1)
   }
-  // create a vector of FullAdders
-  val FAs   = Vec.fill(n){ Module(new FullAdder()).io }
-  val carry = Vec.fill(n+1){ UInt(width = 1) }
-  val sum   = Vec.fill(n){ Bool() }
+  //create a vector of FullAdders
+  val FAs   = Vec.fill(n)(Module(new FullAdder()).io)
+  val carry = Wire(Vec(n+1, UInt(width = 1)))
+  val sum   = Wire(Vec(n, Bool()))
 
-  // first carry is the top level carry in
+  //first carry is the top level carry in
   carry(0) := io.Cin
 
-  // wire up the ports of the full adders
-  for(i <- 0 until n) {
-     FAs(i).a   := io.A(i)
-     FAs(i).b   := io.B(i)
-     FAs(i).cin := carry(i)
-     carry(i+1) := FAs(i).cout
-     sum(i)     := FAs(i).sum.toBool()
+  //wire up the ports of the full adders
+  for (i <- 0 until n) {
+    FAs(i).a := io.A(i)
+    FAs(i).b := io.B(i)
+    FAs(i).cin := carry(i)
+    carry(i+1) := FAs(i).cout
+    sum(i) := FAs(i).sum.toBool()
   }
-  io.Sum  := sum.toBits().toUInt()
+  io.Sum := Cat(sum.reverse)
   io.Cout := carry(n)
 }
 ```
