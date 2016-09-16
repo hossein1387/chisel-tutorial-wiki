@@ -51,3 +51,5 @@ chisel-tutorial
          - Test harnesses for the solution circuits
        - util/
          - TutorialRunner.scala
+
+ - [Next (The Basics)](The Basics)
