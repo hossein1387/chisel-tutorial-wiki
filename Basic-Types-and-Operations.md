@@ -74,14 +74,14 @@ A list of commonly used UInt operations is given in the table below:
 
 | Operand | Operation | Output Type |
 | ------- | --------- | ----------- |
-|+ | Add | UInt  |
-|- | Subtract | UInt  |
-|$\ast$ | Multiply | UInt |
-|/ | UInt Divide | UInt |
-|% | Modulo | UInt |
-|\~\ | Bitwise Negation | UInt |
-|\^\ | Bitwise XOR | UInt|
-|\& | Bitwise AND | UInt |
+| + | Add | UInt  |
+| - | Subtract | UInt  |
+| * | Multiply | UInt |
+| / | UInt Divide | UInt |
+| % | Modulo | UInt |
+| ~ | Bitwise Negation | UInt |
+| ^ | Bitwise XOR | UInt|
+| & | Bitwise AND | UInt |
 | \| | Bitwise OR | Bool |
 |=== | Equal | Bool |
 |=/= | Not Equal | Bool |
