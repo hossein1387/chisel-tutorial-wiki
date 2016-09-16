@@ -37,7 +37,7 @@ It is also important to note, that the indexing variable *i* does not actually m
 
 The for loop construct is also very useful for assigning to arbitrarily long *Vec*s 
 
-### Using If, Else If, Else}
+### Using If, Else If, Else
 
 As previously mentioned, the *if, elseif,* and *else* keywords are reserved for Scala control structures. What this means for Chisel is that these constructs allow you to selectively generate different structures depending on parameters that are supplied. This is particularly useful when you want to turn certain features of your implementation "on" or "off", or if you want to use a different variant of some component.
 
@@ -117,7 +117,7 @@ val onehotcounter =
 
 This allows seamless alternation between them.
 
-### Using def}
+### Using def
 
 Chisel also allows the usage of the Scala *def* statement to define Chisel code that may be used frequently. These *def* statements can be packaged into a Scala Object and then called inside a Module. The following Chisel code shows an alternate implementation of an counter using *def* that increments by *amt* if the *inc* signal is asserted.
 
@@ -207,7 +207,6 @@ Run
 ```bash
 make Mul.out
 ```
- 
 until your circuit passes the tests.
 
 [Prev (Creating Your Own Project)](Creating Your Own Project) 
