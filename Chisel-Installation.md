@@ -8,7 +8,7 @@ Scala.
 
 The chisel tutorials should be able to be run on a variety of modern systems.  
 For the most update instructions on
-preparing your machine for Chisel see [Chisel Installation Preparation](https://github.com/ucb-bar/chisel3/wiki/Install)
+preparing your machine for Chisel see [Chisel Installation Preparation](https://github.com/ucb-bar/chisel3/wiki/Installation Preparation)
 
 ## Setting Up the Tutorial
 
