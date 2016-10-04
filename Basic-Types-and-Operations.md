@@ -9,13 +9,13 @@ Consider the simple *FullAdder* circuit from previous tutorial that determines t
 
 ```scala
 class FullAdder extends Module {
-  val io = new Bundle {
+  val io = IO(new Bundle {
     val a    = UInt(INPUT, 1)
     val b    = UInt(INPUT, 1)
     val cin  = UInt(INPUT, 1)
     val sum  = UInt(OUTPUT, 1)
     val cout = UInt(OUTPUT, 1)
-  }
+  })
 
   // Generate the sum
   val a_xor_b = io.a ^ io.b
@@ -41,12 +41,12 @@ In the previous examples we have been using the UInt type which is an unsigned i
 
 ```scala
 class BasicALU extends Module {
-  val io = new Bundle {
+  val io = IO(new Bundle {
     val a = UInt(INPUT, 4)
     val b = UInt(INPUT, 4)
     val opcode = UInt(INPUT, 4)
     val out = UInt(OUTPUT, 4)
-  }
+  })
   io.out := 0.U //THIS SEEMS LIKE A HACK/BUG
   when (io.opcode === 0.U) {
     io.out := io.a //pass A
@@ -120,11 +120,11 @@ A more concrete example of bit extraction in action is shown below. In this exam
 
 ```scala
 class ByteSelector extends Module {
-  val io = new Bundle {
+  val io = IO(new Bundle {
     val in     = UInt(INPUT, 32)
     val offset = UInt(INPUT, 2)
     val out    = UInt(OUTPUT, 8)
-  }
+  })
   io.out := UInt(0, width=8)
   when (io.offset === UInt(0, width=2)) {
     io.out := io.in(7,0)
@@ -159,10 +159,10 @@ by filling in the following module:
 
 ```scala
 class LFSR16 extends Module {
-  val io = new Bundle {
+  val io = IO(new Bundle {
     val inc = Bool(INPUT)
     val out = UInt(OUTPUT, 16)
-  }
+  })
   // ...
   io.out := UInt(0)
 }
@@ -187,12 +187,12 @@ Consider the following example where we multiply two 16 bit numbers *A* and *B* 
 
 ```scala
 class HiLoMultiplier() extends Module {
-  val io = new Bundle {
+  val io = IO(new Bundle {
     val A  = UInt(INPUT, 16)
     val B  = UInt(INPUT, 16)
     val Hi = UInt(OUTPUT, 16)
     val Lo = UInt(OUTPUT, 16)
-  }
+  })
   val mult = io.A * io.B
   io.Lo := mult(15, 0)
   io.Hi := mult(31, 16)  
@@ -230,12 +230,12 @@ Consider the following example where we multiply two 16 bit numbers *A* and *B* 
 ```scala
 //A 4-bit adder with carry in and carry out
 class HiLoMultiplier() extends Module {
-  val io = new Bundle {
+  val io = IO(new Bundle {
     val A  = UInt(INPUT, 16)
     val B  = UInt(INPUT, 16)
     val Hi = UInt(OUTPUT, 16)
     val Lo = UInt(OUTPUT, 16)
-  }
+  })
   val mult = io.A * io.B
   io.Lo := mult(15, 0)
   io.Hi := mult(31, 16)
@@ -323,10 +323,10 @@ The correct way to perform the intended operation is to cast the resulting Bool 
 
 ```scala
   ...
-  val io = new Bundle {
+  val io = IO(new Bundle {
     val in  = UInt(INPUT, 2)
     val out = UInt(OUTPUT, 1)
-  }
+  })
   io.out := (in === UInt(0)).toUInt() // UInt cast
   ...
 ```

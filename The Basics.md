@@ -59,13 +59,13 @@ import Chisel._
 
 
 class GCD extends Module {
-  val io = new Bundle {
+  val io = IO(new Bundle {
     val a  = UInt(INPUT,  16)
     val b  = UInt(INPUT,  16)
     val e  = Bool(INPUT)
     val z  = UInt(OUTPUT, 16)
     val v  = Bool(OUTPUT)
-  }
+  })
   val x  = Reg(UInt())
   val y  = Reg(UInt())
   when   (x > y) { x := x - y }
@@ -80,7 +80,7 @@ The first thing you will notice is the `import Chisel._` declaration; this impor
 After the import declarations you will see the Scala class definition for the Chisel component you are implementing.
 You can think of this as almost the same thing as a module declaration in Verilog.
 
-Next we see the I/O specification for this component in the `val io = new Bundle{...}` definition.
+Next we see the I/O specification for this component in the `val io = IO(new Bundle{...})` definition.
 You will notice that the bundle takes several arguments as part of its construction, each with a specified type (UInt, Bool, etc.), a direction (either INPUT or OUTPUT), and a bit width.
 If a bit width is not specified, Chisel will infer the appropriate bit width for you (in this case default to 1).
 The `io` Bundle is essentially a constructor for the component interface.
@@ -160,13 +160,13 @@ The Chisel source code for our full adder will look something like:
 
 ``` scala
 class FullAdder extends Module {
-  val io = new Bundle {
+  val io = IO(new Bundle {
     val a    = UInt(INPUT, 1)
     val b    = UInt(INPUT, 1)
     val cin  = UInt(INPUT, 1)
     val sum  = UInt(OUTPUT, 1)
     val cout = UInt(OUTPUT, 1)
-  }
+  })
   // Generate the sum
   val a_xor_b = io.a ^ io.b
   io.sum := a_xor_b ^ io.cin
@@ -230,13 +230,13 @@ Suppose we change the widths of the `FullAdder` to be 2 bits wide each instead s
 
 ``` scala
 class FullAdder extends Module {
-  val io = new Bundle {
+  val io = IO(new Bundle {
     val a    = UInt(INPUT, 2)
     val b    = UInt(INPUT, 2)
     val cin  = UInt(INPUT, 2)
     val sum  = UInt(OUTPUT, 2)
     val cout = UInt(OUTPUT, 2)
-  }
+  })
   // Generate the sum
   val a_xor_b = io.a ^ io.b
   io.sum := a_xor_b ^ io.cin
@@ -320,10 +320,10 @@ If we instantiate and connect each of these 4 registers explicitly, our Chisel c
 
 ``` scala
 class ShiftRegister extends Module {
-  val io = new Bundle {
+  val io = IO(new Bundle {
     val in  = UInt(INPUT, 1)
     val out = UInt(OUTPUT, 1)
-  }
+  })
   val r0 = Reg(next = io.in)
   val r1 = Reg(next = r0)
   val r2 = Reg(next = r1)
@@ -363,11 +363,11 @@ The new shift register now looks like:
 
 ``` scala
 class ShiftRegister extends Module {
-  val io = new Bundle {
+  val io = IO(new Bundle {
     val in     = UInt(INPUT, 1)
     val enable = Bool(INPUT)
     val out    = UInt(OUTPUT, 1)
-  }
+  })
 
   val r0 = Reg(UInt())
   val r1 = Reg(UInt())
@@ -394,11 +394,11 @@ To do this we need to provide our register declarations a little more informatio
 
 ``` scala
 class ShiftRegister extends Module {
-  val io = new Bundle {
+  val io = IO(new Bundle {
     val in     = UInt(INPUT, 1)
     val enable = Bool(INPUT)
     val out    = UInt(OUTPUT, 1)
-  }
+  })
   // Register reset to zero
   val r0 = Reg(init = UInt(0, width = 1))
   val r1 = Reg(init = UInt(0, width = 1))
@@ -422,11 +422,11 @@ The shift register using this implict global reset now looks like:
 
 ``` scala
 class ShiftRegister extends Module {
-  val io = new Bundle {
+  val io = IO(new Bundle {
     val in     = UInt(INPUT, 1)
     val enable = Bool(INPUT)
     val out    = UInt(OUTPUT, 1)
-  }
+  })
   val r0 = Reg(UInt())
   val r1 = Reg(UInt())
   val r2 = Reg(UInt())
@@ -461,10 +461,10 @@ The first tutorial problem is to write write a sequential circuit that sums `in`
 You can find the template in `$TUT_DIR/src/main/scala/problems/Accumulator.scala` including a stubbed out version of the circuit:
 ``` scala
 class Accumulator extends Module {
-  val io = new Bundle {
+  val io = IO(new Bundle {
     val in  = UInt(INPUT, 1)
     val out = UInt(OUTPUT, 8)
-  }
+  })
 
   // flush this out ...
 

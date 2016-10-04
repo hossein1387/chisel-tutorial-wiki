@@ -10,11 +10,11 @@ package TutorialExamples
 import Chisel._
 
 class ByteSelector extends Module {
-  val io = new Bundle {
+  val io = IO(new Bundle {
     val in     = UInt(INPUT, 32)
     val offset = UInt(INPUT, 2)
     val out    = UInt(OUTPUT, 8)
-  }
+  })
   io.out := UInt(0, width = 8)
   when (io.offset === UInt(0)) {
     io.out := io.in(7,0)
@@ -127,11 +127,11 @@ In this assignment, write a tester for the *Max2* circuit:
 
 ```scala
 class Max2 extends Module {
-  val io = new Bundle {
+  val io = IO(new Bundle {
     val in0 = UInt(INPUT,  8)
     val in1 = UInt(INPUT,  8)
     val out = UInt(OUTPUT, 8)
-  }
+  })
   io.out := Mux(io.in0 > io.in0, io.in0, io.in1)
 }
 ```

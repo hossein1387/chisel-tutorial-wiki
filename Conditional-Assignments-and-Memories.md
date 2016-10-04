@@ -3,13 +3,13 @@ Often times parametrization requires instantiating multiple components which are
 ```scala
 //A n-bit adder with carry in and carry out
 class Adder(val n:Int) extends Module {
-  val io = new Bundle {
+  val io = IO(new Bundle {
     val A    = UInt(INPUT, n)
     val B    = UInt(INPUT, n)
     val Cin  = UInt(INPUT, 1)
     val Sum  = UInt(OUTPUT, n)
     val Cout = UInt(OUTPUT, 1)
-  }
+  })
   //create a vector of FullAdders
   val FAs   = Vec.fill(n)(Module(new FullAdder()).io)
   val carry = Wire(Vec(n+1, UInt(width = 1)))
@@ -46,28 +46,28 @@ For instance, suppose we have several simple counters that we would like to pack
 ```scala
 // Simple up counter that increments from 0 and wraps around
 class UpCounter(CounterWidth:Int) extends Module {
-  val io = new Bundle {
+  val io = IO(new Bundle {
     val output = UInt(OUTPUT, CounterWidth)
     val ce     = Bool(INPUT)
-  }...
+  })...
 }
 
 // Simple down counter that decrements from 
 // 2^CounterWidth-1 then wraps around
 class DownCounter(CounterWidth:Int) extends Module{
-  val io = new Bundle {
+  val io = IO(new Bundle {
     val output = UInt(OUTPUT, CounterWidth)
     val ce     = Bool(INPUT)
-  }...
+  })...
 }
 
 // Simple one hot counter that increments from one hot 0 
 // to CounterWidth-1 then wraps around
 class OneHotCounter(CounterWidth:Int) extends Module {
-  val io = new Bundle {
+  val io = IO(new Bundle {
       val output = UInt(OUTPUT, CounterWidth)
       val ce     = Bool(INPUT)
-  }...
+  })...
 }
 ```
 
@@ -76,10 +76,10 @@ We could just instantiate all three of these counters and multiplex between them
 ```scala
 class Counter(CounterWidth: Int, CounterType: String) 
     extends Module {
-  val io = new Bundle {
+  val io = IO(new Bundle {
     val output = UInt(OUTPUT, CounterWidth)
     val ce     = Bool(INPUT)
-  }
+  })
   if (CounterType == "UpCounter") {
      val upcounter = new UpCounter(CounterWidth)
      upcounter.io.ce := io.ce
@@ -134,11 +134,11 @@ object Counter {
 }
 
 class Counter extends Module {
-  val io = new Bundle {
+  val io = IO(new Bundle {
     val inc = Bool(INPUT)
     val amt = UInt(INPUT,  4)
     val tot = UInt(OUTPUT, 8)
-  }
+  })
   io.tot := counter(UInt(255), io.inc, io.amt)
 }
 ```
@@ -152,10 +152,10 @@ The following is a the template from *$TUT_DIR/problems/VecShiftRegisterParam.sc
 
 ```scala
 class VecShiftRegisterParam(val n: Int, val w: Int) extends Module {
-  val io = new Bundle {
+  val io = IO(new Bundle {
     val in  = UInt(INPUT,  w)
     val out = UInt(OUTPUT, w)
-  }
+  })
   ...
   io.out := UInt(0)
 }
@@ -178,11 +178,11 @@ The following is a the template from *$TUT_DIR/problems/Mul.scala*:
 
 ```scala
 class Mul extends Module {
-  val io = new Bundle {
+  val io = IO(new Bundle {
     val x   = UInt(INPUT,  4)
     val y   = UInt(INPUT,  4)
     val z   = UInt(OUTPUT, 8)
-  }
+  })
   val muls = new ArrayBuffer[UInt]()
 
   // flush this out ...

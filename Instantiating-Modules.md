@@ -14,13 +14,13 @@ The Chisel source code is shown below.
 ``` scala
 // A 4-bit adder with carry in and carry out
 class Adder4 extends Module {
-  val io = new Bundle {
+  val io = IO(new Bundle {
     val A    = UInt(INPUT, 4)
     val B    = UInt(INPUT, 4)
     val Cin  = UInt(INPUT, 1)
     val Sum  = UInt(OUTPUT, 4)
     val Cout = UInt(OUTPUT, 1)
-  }
+  })
   // Adder for bit 0
   val Adder0 = Module(new FullAdder())
   Adder0.io.a   := io.A(0)
@@ -109,10 +109,10 @@ The following is a the template from `$TUT_DIR/src/main/scala/problems/VecShiftR
 
 ``` scala
 class VecShiftRegisterSimple extends Module {
-  val io = new Bundle {
+  val io = IO(new Bundle {
     val in  = UInt(INPUT,  8)
     val out = UInt(OUTPUT, 8)
-  }
+  })
   val delays = Vec(Seq.fill(4){ Reg(UInt(width = 8)) })
   ...
   io.out := UInt(0)
@@ -133,13 +133,13 @@ For a carry ripple adder, we would like to parametrize the width to some integer
 
 // A n-bit adder with carry in and carry out
 class Adder(n: Int) extends Module {
-  val io = new Bundle {
+  val io = IO(new Bundle {
     val A    = UInt(INPUT, n)
     val B    = UInt(INPUT, n)
     val Cin  = UInt(INPUT, 1)
     val Sum  = UInt(OUTPUT, n)
     val Cout = UInt(OUTPUT, 1)
-  }
+  })
   // create a vector of FullAdders
   val FAs = Vec(Seq.fill(n){ Module(new FullAdder()).io })
 
@@ -228,15 +228,15 @@ Because the `Parent` `params` object is automatically cloned for `Child`, the `C
 
 ``` scala
 class Parent extends Module {
-  val io = new Bundle { ...
-}
+  val io = IO(new Bundle { ...
+  })
   val width = params[Int]('width') // returns 10
   // create child Module implicitly passing params
   val child = Module(new Child) 
 }
 class Child extends Module {
-  val io = new Bundle { ...
-}
+  val io = IO(new Bundle { ...
+  })
   val width = params[Int]('width') // returns 10
 }
 ```
@@ -246,16 +246,16 @@ This case requires adding a partial function (a Scala way of defining key-value 
 
 ``` scala
 class Parent extends Module {
-  val io = new Bundle { ...
-}
+  val io = IO(new Bundle { ...
+  })
   val width = params[Int]('width') // returns 10
   val n = params[Int]('n') // returns 20
   // Partial function is added to Module constructor
   val child = Module(new Child,{'n' => 40})
 }
 class Child extends Module {
-  val io = new Bundle { ...
-}
+  val io = IO(new Bundle { ...
+  })
   val width = params[Int]('width') // returns 10
   val n = params[Int]('n') // returns 40
 }
@@ -266,8 +266,8 @@ The existing source code might look like:
 
 ``` scala
 class Mesh(routerConstructor: () => Router, n:Int) extends Module {
-  val io = new Bundle { ...
-}
+  val io = IO(new Bundle { ...
+  })
   val routers = Vec(Seq.fill(n){Module(routerConstructor())})
   hookUpRouters(routers)
 }
@@ -281,14 +281,14 @@ Alternatively, one can use the `params` object to implicitly pass the `RoutingFu
 
 ``` scala
 class MyRouter extends Module {
-  val io = new Bundle { ...
-}
+  val io = IO(new Bundle { ...
+  })
   val myRoutingFunction = params[RoutingFunction]('r')
   ...
 }
 class Top extends Module {
-  val io = new Bundle { ...
-}
+  val io = IO(new Bundle { ...
+  })
   val mesh = Module(new Mesh(() => new MyRouter),{'r' => new RoutingFunction})
 }
 ```
@@ -328,11 +328,11 @@ The following is a the template from `$TUT_DIR/src/main/scala/problems/Adder.sca
 
 ``` scala
 class Adder(val w: Int) extends Module {
-  val io = new Bundle {
+  val io = IO(new Bundle {
     val in0 = UInt(INPUT,  1)
     val in1 = UInt(INPUT,  1)
     val out = UInt(OUTPUT, 1)
-  }
+  })
   ...
   io.out := UInt(0)
 }
