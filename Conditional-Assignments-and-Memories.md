@@ -148,7 +148,7 @@ In this example, we use calls to subroutines defined in the *Counter* object in 
 ### *Parameterized Vec Shift Reg*
 
 The next assignment is to construct a bit shift register with delay parameter.
-The following is a the template from *$TUT_DIR/problems/VecShiftRegisterParam.scala*:
+The following is a the template from *$TUT_DIR/src/main/scala/problems/VecShiftRegisterParam.scala*:
 
 ```scala
 class VecShiftRegisterParam(val n: Int, val w: Int) extends Module {
@@ -166,7 +166,7 @@ Also notice how *val* is added to each parameter value to
 allow those values to be accessible from the tester. Run 
 
 ```bash
-make VecShiftRegisterParam.out
+./run-problem.sh VecShiftRegisterParam
 ```
  
 until your circuit passes the tests.
@@ -174,7 +174,7 @@ until your circuit passes the tests.
 ### *Mul Lookup Table*
 
 The next assignment is to write a 16x16 multiplication table using *Vec*.
-The following is a the template from *$TUT_DIR/problems/Mul.scala*:
+The following is a the template from *$TUT_DIR/problems/src/main/scala/problems/Mul.scala*:
 
 ```scala
 class Mul extends Module {
@@ -205,7 +205,7 @@ io.z := tab(Cat(io.x, io.y))
 Run 
 
 ```bash
-make Mul.out
+./run-problem.sh Mul
 ```
 until your circuit passes the tests.
 
