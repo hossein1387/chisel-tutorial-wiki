@@ -81,7 +81,7 @@ where *peek* gets the value of a signal from the DUT.
 
 ### Simulation Debug Output
 
-Now suppose we run the testbench for the *ByteSelector* defined previously. To do this, *cd* into the *$DIR/problems* directory and run *make ByteSelector*.
+Now suppose we run the testbench for the *ByteSelector* defined previously. To do this, make sure you are in *$TUT_DIR* and then run *./run-examples.sh ByteSelector*.
 
 When we run the testbench, we will notice that the simulation produces debug output every time the *step* function is called. Each of these calls gives the state of the inputs and outputs to the *ByteSelector* and whether the check between the reference output and expected output matched as shown below:
 
@@ -136,7 +136,7 @@ class Max2 extends Module {
 }
 ```
 
-found in *$TUT_DIR/problems/Max2.scala* by filling in the following tester:
+found in *$TUT_DIR/src/main/scala/problems/Max2.scala* by filling in the following tester:
 
 ```scala
 class Max2Tests(c: Max2) extends Tester(c) {
@@ -161,7 +161,7 @@ val in0 = rnd.nextInt(lim)
 Run 
 
 ```bash
-make Max2.out
+./run-problem.sh Max2
 ```
  
 until the circuit passes your tests.
